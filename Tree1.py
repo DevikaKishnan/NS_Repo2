@@ -1,15 +1,11 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Sep 25 15:00:42 2015
-
-@author: Devi
-"""
 
 #Tree
 # Creating a tree
 
 nodes = int(raw_input('Give nodes of tree'))
 value = int(raw_input('Give value'))
+
+global i
 
 class makelevel(object):
     def __init__(self, value = None, nodes = None, left = None, right = None):
@@ -29,6 +25,9 @@ class makelevel(object):
         if self.nodes == 0:
             self.left = self.value
             return self.left
+        elif self.left == None:
+            self.left = self.value
+            return self.left
         else:
             self.left = self.value + self.left
         return self.left
@@ -37,38 +36,40 @@ class makelevel(object):
         if self.nodes == 0:
             self.right = self.value 
             return self.right
+        elif self.right == None:
+            self.right = self.value
+            return self.right
         else:
             self.right = self.value + self.right 
             return self.right
+
+tree = [0,0]
     
-tree = [0]            
+def fortree(value,left,right):
+    a = makelevel.evaluate(makelevel(value,i,left,right))
+    return a
+        
+x =int(0)        
+    
 for i in range(nodes):
-        c = makelevel.evaluate(makelevel(value,i,tree[i],tree[i]))
-        print c
-        tree.append(c[0])
-        tree.append(c[1])
-        for j in range(2):
-            value = c[j]
-            e = makelevel(value,j,tree[j],tree[j+1])
-            f = makelevel.evaluate(e)
-            print tree[j],' ',f[0],' ',f[1],' ', tree[(j)]
+    if i == 0:
+        a = fortree(value,tree[i],tree[i+1])
+        b = [0,a[0],a[1],0]
+        c = [a[0],a[1]]
+        print value
+        x = -2
+    else:
+        for j in range(1,len(a)+1):
+            value = c[x]
+            e = fortree(value,b[j-1],b[j+1])
+            c.append(e[0])
+            c.append(e[1])
+            b.append(0),b.append(e[0]),b.append(e[1]),b.append(0)
+            x= x+1
+        j = j+4   
+    x=x+2        
+    print b
+    print c
+
             
-#3rint tree[1],' ', tree[3],' ', tree[4],' ', tree[2]
-
     
-    
-  
-            
-
-
-
-
-#my_expr = exprnode('*', exprnode('+',exprnode(2),exprnode(3)),exprnode(4))
-
-
-
-#    child[1] = [1]
-#    child[2] = [1,1]
-#    child[3] = [child[2][0],child[2][0] + child[2][1], child[2][1] + child[2][0], child[2][1]]
-#    child[4] = [ child[3][0],child[3][0] + child[3][1],child[3][1] + child[3][0],child[3][1] + child[3][2],child[3][2]+child[3][1],child[3][2]+child[3][3],child[3][3]+child[3][2],child[3][3]]
-
